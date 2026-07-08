@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Technical Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        darkBg: '#0f172a',    /* Slate 900 */
+                        darkCard: '#1e293b',  /* Slate 800 */
+                        accent: '#6366f1',    /* Indigo 500 */
+                        accentHover: '#4f46e5' /* Indigo 600 */
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-darkBg text-slate-100 font-sans antialiased selection:bg-accent selection:text-white">
+
+    <nav class="sticky top-0 z-50 backdrop-blur-md bg-darkBg/80 border-b border-slate-800">
+        <div class="max-w-4xl mx-auto px-6 h-16 flex items-center justify-between">
+            <a href="#" class="text-xl font-bold tracking-tight bg-gradient-to-r from-white to-slate-400 bg-clip-text text-transparent">
+                Dev<span class="text-accent">.</span>Port
+            </a>
+            <div class="flex space-x-6 text-sm font-medium text-slate-400">
+                <a href="#about" class="hover:text-white transition-colors">About</a>
+                <a href="#skills" class="hover:text-white transition-colors">Skills</a>
+                <a href="#projects" class="hover:text-white transition-colors">Projects</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-4xl mx-auto px-6 py-12 space-y-24">
+
+        <section id="about" class="pt-8 md:pt-16 space-y-6">
+            <div class="inline-flex items-center gap-2 px-3 py-1 text-xs font-medium text-accent bg-accent/10 rounded-full border border-accent/20">
+                <span class="w-2 h-2 rounded-full bg-accent animate-pulse"></span>
+                Available for Opportunities
+            </div>
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-white leading-tight">
+                Hi, I'm a <span class="bg-gradient-to-r from-accent to-purple-400 bg-clip-text text-transparent">Software Engineer</span> building clean, scalable applications.
+            </h1>
+            <p class="text-lg text-slate-400 max-w-2xl leading-relaxed">
+                I specialize in full-stack web development, data structures, and creating automated workflows. Focused on writing modular, readable code and designing highly intuitive user experiences.
+            </p>
+            <div class="flex flex-wrap gap-4 pt-2">
+                <a href="#projects" class="px-5 py-2.5 bg-accent hover:bg-accentHover text-white text-sm font-medium rounded-lg transition-all duration-200 shadow-lg shadow-accent/20">
+                    View My Work
+                </a>
+                <a href="https://github.com" target="_blank" class="px-5 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-200 text-sm font-medium rounded-lg border border-slate-700 transition-all duration-200">
+                    GitHub Profile
+                </a>
+            </div>
+        </section>
+
+        <hr class="border-slate-800">
+
+        <section id="skills" class="space-y-8">
+            <div class="space-y-2">
+                <h2 class="text-2xl font-bold tracking-tight text-white">Skills & Tech Stack</h2>
+                <p class="text-sm text-slate-400">Tools, frameworks, and languages I use to bring ideas to life.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="p-6 bg-darkCard rounded-xl border border-slate-800 hover:border-slate-700 transition-all">
+                    <h3 class="text-sm font-semibold text-accent uppercase tracking-wider mb-4">Frontend</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 text-xs bg-darkBg text-slate-300 rounded-md border border-slate-700">HTML5 / CSS3</span>
+                        <span class="px-3 py-1 text-xs bg-darkBg text-slate-300 rounded-md border border-slate-700">JavaScript (ES6+)</span>
+                        <span class="px-3 py-1 text-xs bg-darkBg text-slate-300 rounded-md border border-slate-700">React.js</span>
+                        <span class="px-3 py-1 text-xs bg-darkBg text-slate-300 rounded-md border border-slate-700">Tailwind CSS</span>
+                    </div>
+                </div>
+
+                <div class="p-6 bg-darkCard rounded-xl border border-slate-800 hover:border-slate-700 transition-all">
+                    <h3 class="text-sm font-semibold text-accent uppercase tracking-wider mb-4">Backend & DB</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 text-xs bg-darkBg text-slate-300 rounded-md border border-slate-700">Node.js</span>
+                        <span class="px-3 py-1 text-xs bg-darkBg text-slate-300 rounded-md border border-slate-700">Express.js</span>
+                        <span class="px-3 py-1 text-xs bg-darkBg text-slate-300 rounded-md border border-slate-700">MySQL</span>
+                        <span class="px-3 py-1 text-xs bg-darkBg text-slate-300 rounded-md border border-slate-700">REST APIs</span>
+                    </div>
+                </div>
+
+                <div class="p-6 bg-darkCard rounded-xl border border-slate-800 hover:border-slate-700 transition-all">
+                    <h3 class="text-sm font-semibold text-accent uppercase tracking-wider mb-4">Core & Tools</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 text-xs bg-darkBg text-slate-300 rounded-md border border-slate-700">Java / Python</span>
+                        <span class="px-3 py-1 text-xs bg-darkBg text-slate-300 rounded-md border border-slate-700">Git & GitHub</span>
+                        <span class="px-3 py-1 text-xs bg-darkBg text-slate-300 rounded-md border border-slate-700">DSA Fundamentals</span>
+                        <span class="px-3 py-1 text-xs bg-darkBg text-slate-300 rounded-md border border-slate-700">n8n Automation</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <hr class="border-slate-800">
+
+        <section id="projects" class="space-y-8">
+            <div class="space-y-2">
+                <h2 class="text-2xl font-bold tracking-tight text-white">Featured Projects</h2>
+                <p class="text-sm text-slate-400">A selection of recent development and automation projects.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="group relative p-6 bg-darkCard rounded-xl border border-slate-800 hover:border-slate-700 transition-all duration-300 flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-start mb-3">
+                            <h3 class="text-lg font-bold text-white group-hover:text-accent transition-colors">Student Attendance Management</h3>
+                            <span class="text-xs font-medium text-slate-500">Full-Stack</span>
+                        </div>
+                        <p class="text-sm text-slate-400 mb-6 leading-relaxed">
+                            A secure web application designed to track and manage real-time student attendance records efficiently. Features a clean administrative dashboard.
+                        </p>
+                    </div>
+                    <div>
+                        <div class="flex flex-wrap gap-1.5 mb-4">
+                            <span class="px-2 py-0.5 text-[11px] bg-darkBg text-slate-400 rounded">Node.js</span>
+                            <span class="px-2 py-0.5 text-[11px] bg-darkBg text-slate-400 rounded">Express</span>
+                            <span class="px-2 py-0.5 text-[11px] bg-darkBg text-slate-400 rounded">MySQL</span>
+                        </div>
+                        <div class="flex gap-4 text-xs font-medium">
+                            <a href="#" class="text-accent hover:underline flex items-center gap-1">Code &rarr;</a>
+                            <a href="#" class="text-slate-400 hover:text-white transition-colors">Live Demo</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="group relative p-6 bg-darkCard rounded-xl border border-slate-800 hover:border-slate-700 transition-all duration-300 flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-start mb-3">
+                            <h3 class="text-lg font-bold text-white group-hover:text-accent transition-colors">AI Email Classifier & Automation</h3>
+                            <span class="text-xs font-medium text-slate-500">AI / DevOps</span>
+                        </div>
+                        <p class="text-sm text-slate-400 mb-6 leading-relaxed">
+                            An automated workflow system that processes incoming messages, classifies user intent, and generates intelligent contextual email drafts automatically.
+                        </p>
+                    </div>
+                    <div>
+                        <div class="flex flex-wrap gap-1.5 mb-4">
+                            <span class="px-2 py-0.5 text-[11px] bg-darkBg text-slate-400 rounded">n8n</span>
+                            <span class="px-2 py-0.5 text-[11px] bg-darkBg text-slate-400 rounded">LLM API</span>
+                            <span class="px-2 py-0.5 text-[11px] bg-darkBg text-slate-400 rounded">Automation</span>
+                        </div>
+                        <div class="flex gap-4 text-xs font-medium">
+                            <a href="#" class="text-accent hover:underline flex items-center gap-1">Code &rarr;</a>
+                            <a href="#" class="text-slate-400 hover:text-white transition-colors">Live Demo</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="border-t border-slate-800 bg-darkBg mt-24">
+        <div class="max-w-4xl mx-auto px-6 py-8 flex flex-col md:flex-row items-center justify-between text-xs text-slate-500 gap-4">
+            <p>&copy; 2026 Developer Portfolio. Built independently.</p>
+            <div class="flex space-x-4">
+                <a href="#" class="hover:text-slate-300">GitHub</a>
+                <a href="#" class="hover:text-slate-300">LinkedIn</a>
+                <a href="#" class="hover:text-slate-300">Email</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
