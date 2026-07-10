@@ -1,15 +1,288 @@
-/* Premium Tech Dot Matrix Background Pattern */
+/* ===========================================================
+   Manyam Geetha Sree — Portfolio
+   Design tokens: deep navy tech surface + emerald signal accent,
+   violet used only to mark AI/GenAI work (structural meaning, not decoration)
+   =========================================================== */
+
+:root {
+  --bg: #0b0e14;
+  --bg-dot: rgba(148, 163, 184, 0.08);
+  --surface: #131722;
+  --surface-2: #161b26;
+  --border: #1e2532;
+  --text: #e6e9ef;
+  --text-dim: #8a94a6;
+  --text-faint: #5b6577;
+  --accent: #34d399;
+  --accent-strong: #10b981;
+  --accent-soft: rgba(52, 211, 153, 0.1);
+  --ai: #a78bfa;
+  --ai-soft: rgba(167, 139, 250, 0.1);
+  --shadow: 0 20px 40px -20px rgba(0, 0, 0, 0.6);
+  --radius: 16px;
+}
+
+[data-theme="light"] {
+  --bg: #f6f7f9;
+  --bg-dot: rgba(15, 23, 42, 0.06);
+  --surface: #ffffff;
+  --surface-2: #f0f1f4;
+  --border: #e3e6eb;
+  --text: #10141c;
+  --text-dim: #55606f;
+  --text-faint: #8993a3;
+  --accent: #059669;
+  --accent-strong: #047857;
+  --accent-soft: rgba(5, 150, 105, 0.08);
+  --ai: #7c3aed;
+  --ai-soft: rgba(124, 58, 237, 0.08);
+  --shadow: 0 20px 40px -24px rgba(15, 23, 42, 0.18);
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
 .bg-dot-grid {
-  background-size: 24px 24px;
-  background-image: radial-gradient(rgba(16, 185, 129, 0.04) 1px, transparent 1px);
+  background-image: radial-gradient(var(--bg-dot) 1px, transparent 1px);
+  background-size: 22px 22px;
 }
 
-/* Custom fade-in utility for sections */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+.font-display {
+  font-family: 'Space Grotesk', 'Inter', sans-serif;
 }
 
-.animate-fade-in {
-  animation: fadeIn 0.6s ease-out forwards;
+.font-mono {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
 }
+
+/* ---------- surfaces ---------- */
+.surface {
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+}
+
+.surface-2 { background-color: var(--surface-2); }
+
+.text-dim { color: var(--text-dim); }
+.text-faint { color: var(--text-faint); }
+.text-accent { color: var(--accent); }
+.text-ai { color: var(--ai); }
+.border-base { border-color: var(--border); }
+.bg-surface { background-color: var(--surface); }
+.bg-base { background-color: var(--bg); }
+
+/* ---------- side dock nav ---------- */
+.dock {
+  background-color: color-mix(in srgb, var(--surface-2) 92%, transparent);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(14px);
+}
+
+.dock a {
+  color: var(--text-faint);
+  transition: color 0.2s ease, background-color 0.2s ease, transform 0.2s ease;
+}
+
+.dock a:hover {
+  color: var(--accent);
+  background-color: var(--accent-soft);
+  transform: translateY(-1px);
+}
+
+.dock a.active {
+  background-color: var(--accent);
+  color: #06120c;
+  box-shadow: 0 8px 20px -6px var(--accent-strong);
+}
+
+/* ---------- theme toggle ---------- */
+.theme-toggle {
+  border: 1px solid var(--border);
+  background-color: var(--surface-2);
+  color: var(--text-dim);
+  transition: all 0.2s ease;
+}
+.theme-toggle:hover { color: var(--accent); border-color: var(--accent); }
+
+/* ---------- reveal-on-scroll ---------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-stagger .reveal:nth-child(1) { transition-delay: 0.02s; }
+.reveal-stagger .reveal:nth-child(2) { transition-delay: 0.08s; }
+.reveal-stagger .reveal:nth-child(3) { transition-delay: 0.14s; }
+.reveal-stagger .reveal:nth-child(4) { transition-delay: 0.2s; }
+.reveal-stagger .reveal:nth-child(5) { transition-delay: 0.26s; }
+.reveal-stagger .reveal:nth-child(6) { transition-delay: 0.32s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+  html { scroll-behavior: auto; }
+}
+
+/* ---------- terminal hero (signature element) ---------- */
+.terminal {
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+.terminal-bar {
+  background-color: var(--surface-2);
+  border-bottom: 1px solid var(--border);
+}
+.terminal-dot { width: 10px; height: 10px; border-radius: 50%; }
+.terminal-body { font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; line-height: 1.7; }
+.terminal-prompt { color: var(--accent); }
+.caret {
+  display: inline-block;
+  width: 8px;
+  height: 1em;
+  background: var(--accent);
+  margin-left: 2px;
+  vertical-align: text-bottom;
+  animation: blink 1s steps(1) infinite;
+}
+@keyframes blink { 50% { opacity: 0; } }
+@keyframes fadeIn { to { opacity: 1; } }
+
+.typed-line { opacity: 0; animation: fadeIn 0.4s forwards; }
+
+/* ---------- skill bars ---------- */
+.skill-bar-track {
+  height: 6px;
+  border-radius: 999px;
+  background-color: var(--surface-2);
+  overflow: hidden;
+}
+.skill-bar-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-strong));
+  width: 0%;
+  transition: width 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.skill-bar-fill.ai-fill {
+  background: linear-gradient(90deg, var(--ai), #8b5cf6);
+}
+
+/* ---------- project filter chips ---------- */
+.filter-chip {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  border: 1px solid var(--border);
+  background-color: var(--surface);
+  color: var(--text-dim);
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+.filter-chip:hover { color: var(--accent); border-color: var(--accent); }
+.filter-chip.active {
+  background-color: var(--accent);
+  color: #06120c;
+  border-color: var(--accent);
+}
+
+.project-card {
+  transition: border-color 0.3s ease, transform 0.3s ease, opacity 0.3s ease;
+}
+.project-card:hover { transform: translateY(-4px); }
+.project-card.is-hidden { display: none; }
+
+/* project thumb placeholder (no real screenshots yet) */
+/* project thumb placeholder (no real screenshots yet) */
+/* ---------- Project Images ---------- */
+
+.thumb {
+  position: relative;
+  width: 100%;
+  height: 240px;
+  padding: 14px;
+  background: var(--surface-2);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.project-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+  border-radius: 12px;
+  background: #fff;
+  transition: transform .4s ease;
+}
+
+.project-card:hover .project-image {
+  transform: scale(1.04);
+}
+
+.thumb-tag {
+  position: absolute;
+  top: 18px;
+  left: 18px;
+  z-index: 10;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #06120c;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.8rem;
+  font-weight: 700;
+  box-shadow: 0 8px 20px rgba(0,0,0,.25);
+}
+/* ---------- contact form ---------- */
+.field {
+  background-color: var(--surface-2);
+  border: 1px solid var(--border);
+  color: var(--text);
+  transition: border-color 0.2s ease;
+}
+.field:focus { outline: none; border-color: var(--accent); }
+.field::placeholder { color: var(--text-faint); }
+
+/* ---------- misc ---------- */
+.tag-pill {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem;
+  padding: 2px 8px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+}
+.tag-web { color: var(--accent); background-color: var(--accent-soft); border-color: color-mix(in srgb, var(--accent) 30%, transparent); }
+.tag-ai { color: var(--ai); background-color: var(--ai-soft); border-color: color-mix(in srgb, var(--ai) 30%, transparent); }
+.tag-neutral { color: var(--text-dim); }
+
+::selection { background-color: var(--accent); color: #06120c; }
+
+a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 999px; }
