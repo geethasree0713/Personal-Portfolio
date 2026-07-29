@@ -53,7 +53,3 @@ git push -u origin main
 # then: Settings → Pages → Deploy from branch → main → /
 ```
 
-## To finish
-
-- [ ] Add real Formspree endpoint in `index.html` contact form
-- [ ] Add new blog posts inside `blogs/`, and link them from `blog.html`
