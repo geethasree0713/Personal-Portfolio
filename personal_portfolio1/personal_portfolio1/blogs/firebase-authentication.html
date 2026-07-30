@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="A simple, practical breakdown of Firebase Authentication — how it works, the different sign-in methods, and how it compares to rolling your own auth.">
+<meta name="theme-color" content="#0b0e14">
+<title>Firebase Authentication, Explained | Manyam Geetha Sree</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="../style.css">
+<style>
+  .prose p { margin-bottom: 1.1rem; }
+  .prose h2 { font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:1.35rem; margin-top:2.5rem; margin-bottom:1rem; }
+  .prose h3 { font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:1.1rem; margin-top:1.75rem; margin-bottom:0.75rem; }
+  .prose code { font-family:'JetBrains Mono',monospace; font-size:0.85em; background:var(--surface-2); border:1px solid var(--border); padding:0.15em 0.4em; border-radius:5px; }
+  .prose pre { font-family:'JetBrains Mono',monospace; font-size:0.8rem; background:var(--surface-2); border:1px solid var(--border); border-radius:12px; padding:1.1rem 1.25rem; overflow-x:auto; margin-bottom:1.25rem; line-height:1.6; }
+  .prose pre code { background:none; border:none; padding:0; }
+  .prose ul { list-style:disc; padding-left:1.4rem; margin-bottom:1.1rem; }
+  .prose li { margin-bottom:0.4rem; }
+  .prose strong { color:var(--text); font-weight:600; }
+  .prose table { width:100%; border-collapse:collapse; margin-bottom:1.25rem; font-size:0.85rem; }
+  .prose th, .prose td { border:1px solid var(--border); padding:0.55rem 0.8rem; text-align:left; }
+  .prose th { background:var(--surface-2); font-family:'JetBrains Mono',monospace; font-size:0.72rem; text-transform:uppercase; letter-spacing:0.04em; color:var(--text-dim); }
+  .prose hr { border-color:var(--border); margin:2.5rem 0; }
+</style>
+</head>
+<body data-page="blog" class="bg-base text-[color:var(--text)] min-h-screen bg-dot-grid font-sans antialiased">
+
+<nav class="dock fixed left-4 md:left-8 top-1/2 -translate-y-1/2 z-50 p-3 rounded-full flex flex-col gap-5">
+  <a href="../index.html" data-nav="home" class="p-3 rounded-full" title="About">
+    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+  </a>
+  <a href="../skills.html" data-nav="skills" class="p-3 rounded-full" title="Skills">
+    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
+  </a>
+  <a href="../projects.html" data-nav="projects" class="p-3 rounded-full" title="Projects">
+    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+  </a>
+  <a href="../blog.html" data-nav="blog" class="p-3 rounded-full" title="Blog">
+    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+  </a>
+  <a href="../index.html#contact" data-nav="contact" class="p-3 rounded-full" title="Contact">
+    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+  </a>
+</nav>
+
+<button id="theme-toggle" class="theme-toggle fixed right-4 md:right-8 top-6 z-50 w-11 h-11 rounded-full flex items-center justify-center" title="Toggle theme">
+  <svg id="theme-icon" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"></svg>
+</button>
+
+<main class="max-w-3xl mx-auto px-6 md:px-8 pt-24 pb-24 ml-16 md:ml-24">
+
+  <a href="../blog.html" class="font-mono text-xs text-dim hover:text-accent transition inline-flex items-center gap-1 mb-8 reveal">
+    ← back to blog
+  </a>
+
+  <div class="mb-10 reveal">
+    <div class="flex items-center gap-2 flex-wrap mb-4">
+      <span class="tag-pill tag-web">Backend</span>
+      <span class="tag-pill tag-web">Firebase</span>
+      <span class="font-mono text-[11px] text-faint ml-auto">Jul 30, 2026 · 5 min read</span>
+    </div>
+    <h1 class="font-display text-3xl md:text-4xl font-bold tracking-tight leading-tight mb-4">
+      Firebase Authentication, Explained: Login Without Building It Yourself
+    </h1>
+    <p class="text-dim text-sm leading-relaxed">
+      Firebase Authentication handles the entire login system for you —
+      email/password, Google, phone OTP, and more — so you never touch
+      passwords directly. Here's how it actually works, step by step.
+    </p>
+  </div>
+
+  <article class="surface rounded-2xl p-6 md:p-10 prose text-dim text-[0.95rem] leading-relaxed reveal">
+
+    <h2>What Is Firebase Authentication?</h2>
+    <p>
+      Firebase Authentication is a ready-made login system from Google. Instead
+      of writing your own code to store passwords, hash them, verify emails,
+      and manage sessions, you plug in Firebase and it does all of that for
+      you — securely, and for free up to a generous usage limit.
+    </p>
+    <p>
+      It supports several ways for a user to sign in, called <strong>providers</strong>:
+    </p>
+    <ul>
+      <li>Email and password</li>
+      <li>Google, Facebook, GitHub, Apple (social sign-in)</li>
+      <li>Phone number (OTP via SMS)</li>
+      <li>Anonymous (guest) accounts</li>
+    </ul>
+    <p>
+      You don't build any of these flows from scratch — Firebase gives you a
+      small SDK function call for each one.
+    </p>
+
+    <h2>How It Works, Step by Step</h2>
+    <ul>
+      <li><strong>1. Set up a project</strong> — Create a project in the Firebase console and enable the sign-in methods you want (e.g. Email/Password, Google).</li>
+      <li><strong>2. Add the SDK</strong> — Install <code>firebase</code> in your app and initialize it with your project's config keys.</li>
+      <li><strong>3. User signs up or logs in</strong> — Your app calls a Firebase function like <code>createUserWithEmailAndPassword()</code> or <code>signInWithPopup()</code>.</li>
+      <li><strong>4. Firebase handles the heavy lifting</strong> — It checks credentials (or runs the Google/social login popup), creates the user record, and returns a signed-in user object.</li>
+      <li><strong>5. Firebase issues an ID token</strong> — Behind the scenes, this is a JWT that proves who the user is. Firebase auto-refreshes it so you rarely think about it.</li>
+      <li><strong>6. Your backend verifies the token</strong> — If you have your own server, it uses the Firebase Admin SDK to verify the ID token on incoming requests, so it knows which user is calling.</li>
+    </ul>
+
+    <h3>A minimal example (email/password sign-in)</h3>
+    <pre><code>import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+
+const auth = getAuth();
+
+signInWithEmailAndPassword(auth, email, password)
+  .then((userCredential) => {
+    const user = userCredential.user;
+    console.log("Signed in as", user.uid);
+  })
+  .catch((error) => {
+    console.log(error.code, error.message);
+  });</code></pre>
+    <p>
+      That's the whole client-side login flow. No password hashing, no
+      session table, no "forgot password" email logic to write yourself —
+      Firebase has built-in functions for all of it.
+    </p>
+
+    <h2>Where the JWT Fits In</h2>
+    <p>
+      Firebase Authentication actually uses <strong>JWTs internally</strong>.
+      Once a user signs in, Firebase gives your app an ID token — a signed
+      JWT containing the user's UID, email, and expiry time. If you've
+      already understood plain JWT auth, Firebase Auth is really "JWT auth,
+      pre-built for you," with Google's servers doing the signing and
+      verification instead of your own backend.
+    </p>
+    <pre><code>const idToken = await auth.currentUser.getIdToken();
+// send idToken to your backend as: Authorization: Bearer &lt;idToken&gt;</code></pre>
+    <p>
+      Your backend then verifies that token using the Firebase Admin SDK
+      instead of checking a signature manually.
+    </p>
+
+    <h2>Firebase Auth vs Rolling Your Own JWT Auth</h2>
+    <table>
+      <thead>
+        <tr><th>Firebase Authentication</th><th>Custom JWT Auth</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>No backend required to get started</td><td>You build and maintain your own auth server</td></tr>
+        <tr><td>Social/phone login built in</td><td>You'd have to integrate each provider yourself</td></tr>
+        <tr><td>Password reset, email verification included</td><td>You write and secure these flows yourself</td></tr>
+        <tr><td>Less control over token structure/claims</td><td>Full control over what goes in the token</td></tr>
+        <tr><td>Tied to Google's infrastructure</td><td>You own and can move your infrastructure freely</td></tr>
+      </tbody>
+    </table>
+    <p>
+      For most portfolio projects, side projects, and MVPs, Firebase Auth is
+      the faster and safer choice — you're not the one responsible for
+      storing passwords correctly. For large production systems with very
+      specific auth requirements, teams often move to a custom JWT setup.
+    </p>
+
+    <h2>Common Pitfalls</h2>
+    <p><strong>1. Trusting the client-side user object blindly</strong><br>
+    Anyone can call Firebase client SDK functions from the browser. Never
+    trust <code>user.uid</code> sent directly from the frontend for
+    sensitive actions — always verify the ID token on your backend first.</p>
+
+    <p><strong>2. Forgetting to refresh the token</strong><br>
+    ID tokens expire after an hour. The SDK auto-refreshes them for you in
+    most cases, but if you're manually caching a token, it can go stale and
+    get rejected by your backend.</p>
+
+    <p><strong>3. Exposing Firebase config keys and assuming that's a risk</strong><br>
+    Firebase's client config (API key, project ID, etc.) is meant to be
+    public — it's not a secret. The real security boundary is your
+    Firestore/Database security rules and backend token verification, not
+    hiding the config.</p>
+
+    <p><strong>4. Skipping security rules</strong><br>
+    Authentication only proves who someone is — it doesn't automatically
+    restrict what they can access. You still need Firestore/Storage
+    security rules to control what each signed-in user can read or write.</p>
+
+    <h2>Wrapping Up</h2>
+    <p>
+      Firebase Authentication is a great option when you want a working,
+      secure login system fast without building password storage, token
+      signing, and social login flows from scratch. Under the hood it's
+      still JWT-based — Firebase just handles the signing, verification,
+      and provider integrations for you.
+    </p>
+    <p>
+      If you already understand plain JWT auth (see my previous post), Firebase
+      Auth will feel familiar — it's the same core idea, just managed for you.
+    </p>
+
+    <hr>
+    <p class="font-mono text-xs text-faint">
+      Thanks for reading! 
+    </p>
+  </article>
+
+  <div class="mt-10 reveal">
+    <a href="../blog.html" class="font-mono text-xs text-dim hover:text-accent transition inline-flex items-center gap-1">
+      ← back to blog
+    </a>
+  </div>
+
+  <footer class="font-mono text-[11px] text-faint text-center pt-16">
+    PORTFLIO © 2026 Manyam Geetha Sree
+  </footer>
+</main>
+
+<script src="../script.js"></script>
+</body>
+</html>
