@@ -2,8 +2,9 @@
 
 Personal portfolio built with plain HTML, Tailwind CSS (CDN), and vanilla JavaScript. No framework, no build step.
 
-**Live site:** _add your deployed URL here_
-**Repo:** _add your GitHub repo URL here_
+**Live site:** 
+https://mgeethasree-portfolio.vercel.app/
+
 
 ## Structure
 
