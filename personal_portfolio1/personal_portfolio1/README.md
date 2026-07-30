@@ -15,7 +15,7 @@ personal_portfolio1/
 ├── projects.html       # Projects with tag filtering
 ├── blog.html           # Blog listing page
 ├── blogs/
-│   └── blog-jwt-authentication.html   # JWT Authentication post
+│   -all blogs
 ├── assets/              # Images and résumé
 ├── style.css           # Design tokens, animations
 └── script.js           # Theme toggle, reveals, filters, form
